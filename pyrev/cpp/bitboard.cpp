@@ -4,7 +4,7 @@
 using namespace reversi;
 using namespace utils;
 
-void __Bitboard::init_hash_rank(utils::Array<uint64_t, HASH_RANK_LEN_1>* hash_rank)
+void __Bitboard::init_hash_rank(Array<uint64_t, HASH_RANK_LEN_1>* hash_rank, size_t len)
 {
     Random rand;
     for (int i = 0; i < HASH_RANK_LEN_0; i++)

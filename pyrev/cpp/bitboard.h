@@ -23,7 +23,7 @@ namespace reversi
         uint64_t player;
         uint64_t opponent;
 
-        static void init_hash_rank(utils::Array<uint64_t, __Bitboard::HASH_RANK_LEN_1>* hash_rank);
+        static void init_hash_rank(utils::Array<uint64_t, __Bitboard::HASH_RANK_LEN_1>* hash_rank, size_t len);
 
 		__Bitboard() : player(0ULL), opponent(0ULL) { }
         __Bitboard(uint64_t player, uint64_t opponent) : player(player), opponent(opponent) {  }
@@ -103,5 +103,5 @@ namespace reversi
 		}
     };
 
-	inline Array<uint64_t, __Bitboard::HASH_RANK_LEN_0, __Bitboard::HASH_RANK_LEN_1> __Bitboard::HASH_RANK(__Bitboard::init_hash_rank);
+	inline utils::Array<uint64_t, __Bitboard::HASH_RANK_LEN_0, __Bitboard::HASH_RANK_LEN_1> __Bitboard::HASH_RANK(__Bitboard::init_hash_rank);
 }
