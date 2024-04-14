@@ -331,5 +331,5 @@ cdef class Position:
 		return True
 
 	def calc_hash_code(self) -> np.uint64:
-		return np.iunt64(self.__bb.calc_hash_code())
+		return np.uint64(self.__bb.calc_hash_code())
 	
