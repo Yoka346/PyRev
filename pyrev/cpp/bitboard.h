@@ -102,4 +102,6 @@ namespace reversi
 			return h0 ^ h1;
 		}
     };
+
+	inline Array<uint64_t, __Bitboard::HASH_RANK_LEN_0, __Bitboard::HASH_RANK_LEN_1> __Bitboard::HASH_RANK(__Bitboard::init_hash_rank);
 }
