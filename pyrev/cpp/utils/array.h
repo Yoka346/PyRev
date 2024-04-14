@@ -41,7 +41,7 @@ namespace utils
 	class Array<T, LEN_0, LEN_1...>
 	{
 	public:
-		using ElementType = Element<T, LEN_0, LEN_1...>::Type;
+		using ElementType = typename Element<T, LEN_0, LEN_1...>::Type;
 
 		constexpr Array() : data() { ; }
 
