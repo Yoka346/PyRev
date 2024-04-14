@@ -13,7 +13,7 @@ class my_build_ext(build_ext):
                                         "-O2"]
         elif self.compiler.compiler_type == "msvc":
             for e in self.extensions:
-                e.extra_compile_args = ["/std:c20", 
+                e.extra_compile_args = ["/std:c++20", 
                                         "/arch:SSE", "/arch:SSE2", "/arch:AVX2", 
                                         "-O2"]
 
