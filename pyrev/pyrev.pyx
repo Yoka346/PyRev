@@ -329,4 +329,7 @@ cdef class Position:
 
 		self.do_move(coord, self.calc_flip_discs(coord))
 		return True
+
+	def calc_hash_code(self) -> np.int64:
+		return np.int64(self.__bb.calc_hash_code())
 	
