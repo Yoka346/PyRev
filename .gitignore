@@ -2,3 +2,4 @@
 /.vscode
 /build
 /pyrev.egg-info
+/pyrev/pyrev.cpp
