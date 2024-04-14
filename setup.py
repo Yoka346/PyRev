@@ -15,6 +15,7 @@ class my_build_ext(build_ext):
             for e in self.extensions:
                 e.extra_compile_args = ["/std:c++20", 
                                         "/arch:SSE", "/arch:SSE2", "/arch:AVX2", 
+                                        "/source-charset:utf-8",
                                         "-O2"]
 
         build_ext.build_extensions(self)
