@@ -182,4 +182,190 @@ Pythonのlistに格納したい場合は、以下のようにlistコンストラ
 coords = list(BoardCoordinateIterator(bits))
 ```
 
+## Positionクラス
+局面を表現するクラスです。
 
+### side_to_moveプロパティ
+現在の手番を表すDiscColor型の値を返します。
+
+### empty_square_countプロパティ
+空きマスの数を整数値で返します。
+
+### player_disc_countプロパティ
+現在の手番の石の数を整数値で返します。
+
+### opponent_disc_countプロパティ
+相手の石の数を整数値で返します。
+
+### disc_countプロパティ
+全ての石の数を整数値で返します。
+
+### get_disc_count_of(DiscColor)メソッド
+引数にDiscColor型の値を取り、その色の石の数を整数値で返します。
+引数にNULL_COLORを与えた際の動作は未定義です。
+
+### copy_to(Position)メソッド
+引数で受け取ったPositionオブジェクトにオブジェクトの状態をコピーします。
+
+### copy()メソッド
+Positionオブジェクトのコピーを生成して返します。Positionのコピーを行う際は、既存のPositionオブジェクトに書き込む方がオブジェクトの生成を抑えられるため、実行速度がシビアな場面では、copy_toメソッドを利用することを推奨します。
+
+### get_square_owner_at(BoardCoordinate)メソッド
+引数で指定した座標のマスの所有者をSquareOwner型の値として返します。どのプレイヤーも所有していないマスの場合は、NULL_OWNERが返ります。
+
+### get_square_color_at(BoardCoordinate)メソッド
+引数で指定した座標のマスに置かれている石の色をSquareOwner型の値として返します。石が置かれていないマスの場合は、NULL_COLORが返ります。
+石の色が重要ではない場面では、より軽量なget_square_color_atメソッドを利用することを推奨します。
+
+### get_player_disc_coords()メソッド
+現在の手番の石が配置されているマスの座標をBoardCoordinateIteratorオブジェクトで返します。
+
+### get_opponent_disc_coords()メソッド
+相手の石が配置されているマスの座標をBoardCoordinateIteratorオブジェクトで返します。
+
+### get_empty_square_coords()メソッド
+空きマスの座標をBoardCoordinateIteratorオブジェクトで返します。
+
+### \_\_eq\_\_(Position)メソッド
+Positionオブジェクトの等号演算子による比較を可能にします。Position.side_to_moveと石の配置が等しい場合にTrueが返ります。
+Positionオブジェクト以外のオブジェクトと比較した場合にTypeErrorが発生します。
+
+### \_\_str\_\_()メソッド
+Positionオブジェクトを文字列で表現します。黒石は'*'、白石は'O'で表現されます。
+
+```python
+from pyrev import Position
+
+pos = Position()
+print(pos)
+
+
+"""
+result
+
+  A B C D E F G H 
+1 - - - - - - - - 
+2 - - - - - - - - 
+3 - - - - - - - - 
+4 - - - O * - - - 
+5 - - - * O - - - 
+6 - - - - - - - - 
+7 - - - - - - - - 
+8 - - - - - - - - 
+"""
+```
+
+### put_player_disc_at(BoardCoordinate)メソッド
+引数で指定した座標のマスに現在の手番の石を配置します。**このメソッドでは、石を裏返す処置や手番を交代する処理は行われません。**
+あくまでも、盤面に自由に石を配置したい場合に用います。
+
+### put_opponent_disc_at(BoardCoordinate)メソッド
+引数で指定した座標のマスに相手の石を配置します。**このメソッドでは、石を裏返す処置や手番を交代する処理は行われません。**
+あくまでも、盤面に自由に石を配置したい場合に用います。
+
+### remove_disc_at(BoardCoordinate)メソッド
+引数で指定した座標のマスにある石を除去し、空きマスにします。
+
+### is_gameover()メソッド
+終局している場合にTrueを返します。終局の定義は、現在の手番と相手の手番の着手可能位置が0になった時です。
+
+### get_score()メソッド
+現在の手番からみた石差を整数値で返します。
+
+### get_score_from(DiscColor)メソッド
+引数で与えられた石の色の手番からみた石差を返します。
+
+### can_pass()メソッド
+現在の手番がパスできる場合にTrueを返します。パスができる条件は、現在の手番の着手可能位置が0かつ相手の着手可能位置が0より大きい時です。
+
+### is_legal(BoardCoordinate)メソッド
+現在の手番が引数で与えられた座標のマスにルール上着手可能である時、Trueを返します。
+
+### do_pass()メソッド
+手番を交代します。このメソッドは、Position.can_passの真偽に関わらず実行可能です。
+
+### get_legal_moves()メソッド
+現在の手番の合法手の座標をBoardCoordinateIteratorオブジェクトとして返します。
+
+### calc_flip_discs(BoardCoordinate)メソッド
+現在の手番が引数で与えられた座標のマスに着手した際に裏返る石の座標のリストを64bit整数(numpy.int64)で返します。
+
+### do_move(BoardCoordinate, np.int64)
+引数で与えられた座標に現在の手番の石を配置し、引数で与えられた裏返る石のリスト(64bit整数)に従って、現在の手番の石を相手の石に反転します。
+このメソッドはcalc_flip_discsメソッド共に用いることを想定しています。また、引数にPASS_COORDを与えた際の動作は未定義です。パスを行う場合はPosition.do_passメソッドを利用してください。
+引数にNULL_COORDを与えた際の動作は未定義です。
+
+```python
+import pyrev
+from pyrev import Position
+
+pos = Position()
+flip = pos.calc_flip_discs(pyrev.F5)
+pos.do_move(pyrev.F5, flip)
+print(pos)
+
+
+"""
+result
+
+ A B C D E F G H 
+1 - - - - - - - - 
+2 - - - - - - - - 
+3 - - - - - - - - 
+4 - - - O * - - - 
+5 - - - * * * - - 
+6 - - - - - - - - 
+7 - - - - - - - - 
+8 - - - - - - - - 
+"""
+```
+
+### do_move_at(BoardCoordinate)メソッド
+引数で与えられた座標に手番の石を配置し、さらに相手の石を裏返した後、Trueを返します。また、非合法手の座標が与えられた場合にはFalseを返します。このメソッドは、合法手判定を行うため、実行速度にシビアな場面では、Position.do_moveメソッドを利用することを推奨します。
+引数にNULL_COORDを与えた際の動作は未定義です。
+
+```python
+import pyrev
+from pyrev import Position
+
+pos = Position()
+print(pos.do_move_at(pyrev.F4)) # 非合法手
+print(pos)
+
+print()
+
+print(pos.do_move_at(pyrev.F5)) # 合法手
+print(pos)
+
+
+"""
+result
+
+False
+  A B C D E F G H 
+1 - - - - - - - - 
+2 - - - - - - - - 
+3 - - - - - - - - 
+4 - - - O * - - - 
+5 - - - * O - - - 
+6 - - - - - - - - 
+7 - - - - - - - - 
+8 - - - - - - - - 
+
+True
+  A B C D E F G H 
+1 - - - - - - - - 
+2 - - - - - - - - 
+3 - - - - - - - - 
+4 - - - O * - - - 
+5 - - - * * * - - 
+6 - - - - - - - - 
+7 - - - - - - - - 
+8 - - - - - - - - 
+"""
+```
+
+### calc_hash_codeメソッド
+64bitの局面のハッシュ値を返します。ハッシュ値はZobristのアルゴリズムで算出します。置換表などで利用することを想定しています。
+
+##
