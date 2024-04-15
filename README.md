@@ -1,6 +1,8 @@
 # PyRev
 Pythonから利用可能なリバーシ(オセロ)のライブラリです。局面管理、合法手列挙と裏返る石の高速な計算に対応しています。このライブラリを用いることで、Python(CPython)のみでリバーシの局面データを実装するよりも遥かに高速なリバーシの思考エンジンを開発できます。
 
+本ライブラリはAVX2に対応したCPUにおいて最も高速に動作しますが、非対応のCPUでも基本的に問題なく動作します。
+
 ## インストール
 以下のコマンドを実行する前に、C/C++のコンパイラをインストールしてください。特にWindowsであれば、MSVCのcl.exeにパスを通しておいてください。
 
@@ -379,4 +381,6 @@ https://github.com/TadaoYamaoka/creversi
 
 その他、参考にした文献です。
 
+https://github.com/gikou-official/Gikou  
+https://github.com/HiraokaTakuya/apery
 
