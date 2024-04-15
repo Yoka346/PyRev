@@ -368,4 +368,15 @@ True
 ### calc_hash_codeメソッド
 64bitの局面のハッシュ値を返します。ハッシュ値はZobristのアルゴリズムで算出します。置換表などで利用することを想定しています。
 
-##
+## 謝辞
+合法手列挙や裏返る石の位置算出には、以下のサイトを大いに参考にしています。
+
+http://www.amy.hi-ho.ne.jp/okuhara/bitboard.htm
+
+また、CythonとC++を用いてライブラリを開発するにあたり、以下のリポジトリも参考にしています。
+
+https://github.com/TadaoYamaoka/creversi
+
+その他、参考にした文献です。
+
+
