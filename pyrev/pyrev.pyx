@@ -91,6 +91,12 @@ PASS_COORD = np.int8(64)
 NULL_COORD = np.int8(65)
 
 
+def disc_color_to_str(color: DiscColor) -> str:
+	if color == NULL_COLOR:
+		return "Null"
+	return "Black" if color == BLACK else "White"
+
+
 def to_opponent_color(color: DiscColor):
 	return DiscColor(color ^ WHITE)
 
