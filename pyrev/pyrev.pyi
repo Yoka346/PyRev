@@ -102,6 +102,9 @@ class Position:
     def clear(self) -> None: ...
 
     @property
+    def bitboard(self) -> tuple[np.int64, np.int64]: ...
+
+    @property
     def side_to_move(self) -> DiscColor: ...
 
     @property
