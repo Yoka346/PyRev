@@ -200,6 +200,10 @@ cdef class Position:
 		self.__side_to_move = BLACK
 
 	@property
+	def bitboard(self) -> tuple[np.int64, np.int64]:
+		return np.int64(self.__bb.player), np.int64(self.__bb.opponent)
+
+	@property
 	def side_to_move(self) -> DiscColor:
 		return DiscColor(self.__side_to_move)
 
