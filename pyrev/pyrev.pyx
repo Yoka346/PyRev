@@ -192,13 +192,13 @@ cdef class Position:
 	cdef __Bitboard __bb
 	cdef int8_t __side_to_move
 
-	def __cinit__(self):
-		self.clear()
-
-	def init(self, bb: tuple[np.uint64, np.uint64], side_to_move: np.int8):
-		self.__bb = __Bitboard(bb[0], bb[1])
-		self.__side_to_move = side_to_move
-
+	def __cinit__(self, bb: tuple[np.uint64, np.uint64]=None, side_to_move=BLACK):
+		if bb is None:
+			self.clear()
+		else:
+			self.__bb = __Bitboard(bb[0], bb[1])
+			self.__side_to_move = side_to_move
+		
 	def clear(self):
 		cdef uint64_t player
 		cdef uint64_t opponent
