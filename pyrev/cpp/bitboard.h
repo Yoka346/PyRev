@@ -19,6 +19,42 @@ namespace reversi
         // ランクとはチェス用語で盤面の水平方向のライン.
         static utils::Array<uint64_t, HASH_RANK_LEN_0, HASH_RANK_LEN_1> HASH_RANK;
 
+		static uint64_t delta_swap(uint64_t x, uint64_t mask, int delta)
+		{
+			auto t = (x ^ (x >> delta)) & mask;
+			return x ^ t ^ (t << delta);
+		}
+
+		static uint64_t mirror_horizontal(uint64_t bb)
+		{
+			bb = delta_swap(bb, 0x5555555555555555ULL, 1);
+            bb = delta_swap(bb, 0x3333333333333333ULL, 2);
+            return delta_swap(bb, 0x0f0f0f0f0f0f0f0fULL, 4);
+		}
+
+		static uint64_t mirror_vertical(uint64_t bb)
+		{
+			bb = delta_swap(bb, 0x00ff00ff00ff00ffULL, 8);
+            bb = delta_swap(bb, 0x0000ffff0000ffffULL, 16);
+            return delta_swap(bb, 0x00000000ffffffffULL, 32);
+		}
+
+		static uint64_t mirror_diag_a1h8(uint64_t bb)
+		{
+			bb = delta_swap(bb, 0x00aa00aa00aa00aaULL, 7);
+            bb = delta_swap(bb, 0x0000cccc0000ccccULL, 14);
+            return delta_swap(bb, 0x00000000f0f0f0f0ULL, 28);
+		}
+
+		static uint64_t mirror_diag_a8h1(uint64_t bb)
+		{
+			bb = delta_swap(bb, 0x0055005500550055ULL, 9);
+            bb = delta_swap(bb, 0x0000333300003333ULL, 18);
+            return delta_swap(bb, 0x000000000f0f0f0fULL, 36);
+		}
+
+		static uint64_t rotate_clockwise(uint64_t bb) { return mirror_horizontal(mirror_diag_a1h8(bb)); }
+
     public:
         uint64_t player;
         uint64_t opponent;
@@ -85,6 +121,36 @@ namespace reversi
 			uint64_t tmp = this->player;
 			this->player = this->opponent;
 			this->opponent = tmp;
+		}
+
+		void mirror_vertical()
+		{
+			this->player = __Bitboard::mirror_vertical(this->player);
+			this->opponent = __Bitboard::mirror_vertical(this->opponent);
+		}
+
+		void mirror_horizontal()
+		{
+			this->player = __Bitboard::mirror_horizontal(this->player);
+			this->opponent = __Bitboard::mirror_horizontal(this->opponent);
+		}
+
+		void mirror_diag_a1h8()
+		{
+			this->player = __Bitboard::mirror_diag_a1h8(this->player);
+			this->opponent = __Bitboard::mirror_diag_a1h8(this->opponent);
+		}
+
+		void mirror_diag_a8h1()
+		{
+			this->player = __Bitboard::mirror_diag_a8h1(this->player);
+			this->opponent = __Bitboard::mirror_diag_a8h1(this->opponent);
+		}
+
+		void rotate_clockwise()
+		{
+			this->player = __Bitboard::rotate_clockwise(this->player);
+			this->opponent = __Bitboard::rotate_clockwise(this->opponent);
 		}
 
 		uint64_t calc_hash_code() const

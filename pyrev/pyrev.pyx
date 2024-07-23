@@ -153,6 +153,11 @@ cdef extern from "cpp/bitboard.h" namespace "reversi":
 		void update(const int8_t& coord, const uint64_t& flip)
 		void undo(const int8_t& coord, const uint64_t& flip)
 		void swap()
+		void mirror_vertical()
+		void mirror_horizontal()
+		void mirror_diag_a1h8()
+		void mirror_diag_a8h1()
+		void rotate_clockwise()
 		uint64_t calc_hash_code() const
 
 
@@ -190,6 +195,10 @@ cdef class Position:
 	def __cinit__(self):
 		self.clear()
 
+	def init(self, bb: tuple[np.uint64, np.uint64], side_to_move: np.int8):
+		self.__bb = __Bitboard(bb[0], bb[1])
+		self.__side_to_move = side_to_move
+
 	def clear(self):
 		cdef uint64_t player
 		cdef uint64_t opponent
@@ -200,7 +209,7 @@ cdef class Position:
 		self.__side_to_move = BLACK
 
 	@property
-	def bitboard(self) -> tuple[np.int64, np.int64]:
+	def bitboard(self) -> tuple[np.uint64, np.uint64]:
 		return np.uint64(self.__bb.player), np.uint64(self.__bb.opponent)
 
 	@property
@@ -234,6 +243,21 @@ cdef class Position:
 		pos = Position()
 		self.copy_to(pos)
 		return pos
+
+	def mirror_vertical(self):
+		self.__bb.mirror_vertical()
+
+	def mirror_horizontal(self):
+		self.__bb.mirror_horizontal()
+
+	def mirror_diag_a1h8(self):
+		self.__bb.mirror_diag_a1h8()
+
+	def mirror_diag_a8h1(self):
+		self.__bb.mirror_diag_a8h1()
+
+	def rotate_clockwise(self):
+		self.__bb.rotate_clockwise()
 
 	def get_square_owner_at(self, coord: BoardCoordinate) -> SquareOwner:
 		return SquareOwner(self.__bb.get_square_owner_at(coord))
