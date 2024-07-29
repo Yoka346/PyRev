@@ -77,9 +77,9 @@ namespace reversi
 		0, 8, 16, 24, 32, 40, 48, 56
 	};
 
-	int8_t __mirror_coord_horizontal(int8_t coord) { return TO_HORIZONTAL_MIRROR_COORD[coord]; }
-	int8_t __mirror_coord_verical(int8_t coord) { return TO_VERTICAL_MIRROR_COORD[coord]; }
-	int8_t __mirror_coord_diag_a1h8(int8_t coord) { return TO_DIAG_A1H8_MIRROR_COORD[coord]; }
-	int8_t __mirror_coord_diag_a8h1(int8_t coord) { return TO_DIAG_A8H1_MIRROR_COORD[coord]; }
-	int8_t __rotate_coord_clockwise(int8_t coord) { return TO_ROTATE_CLOCKWISE_COORD[coord]; }
+	inline int8_t __mirror_coord_horizontal(int8_t coord) { return TO_HORIZONTAL_MIRROR_COORD[coord]; }
+	inline int8_t __mirror_coord_verical(int8_t coord) { return TO_VERTICAL_MIRROR_COORD[coord]; }
+	inline int8_t __mirror_coord_diag_a1h8(int8_t coord) { return TO_DIAG_A1H8_MIRROR_COORD[coord]; }
+	inline int8_t __mirror_coord_diag_a8h1(int8_t coord) { return TO_DIAG_A8H1_MIRROR_COORD[coord]; }
+	inline int8_t __rotate_coord_clockwise(int8_t coord) { return TO_ROTATE_CLOCKWISE_COORD[coord]; }
 }
