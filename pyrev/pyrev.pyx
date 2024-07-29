@@ -132,7 +132,7 @@ def print_intrin():
 	__print_intrin()
 
 
-cdef extern from "cpp/constant.h":
+cdef extern from "cpp/constant.h" namespace "reversi":
 	cdef int8_t __mirror_coord_horizontal(int8_t coord)
 	cdef int8_t __mirror_coord_verical(int8_t coord)
 	cdef int8_t __mirror_coord_diag_a1h8(int8_t coord)
@@ -154,7 +154,7 @@ def mirror_coord_diag_a8h1(coord):
 
 def rotate_coord_clockwise(coord):
 	return __rotate_coord_clockwise(coord)
-	
+
 
 cdef extern from "cpp/bitboard.h" namespace "reversi":
 	cdef cppclass __Bitboard:
