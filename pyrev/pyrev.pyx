@@ -127,8 +127,34 @@ def coord_to_str(coord: BoardCoordinate) -> str:
 cdef extern from "cpp/config.h":
 	cdef void __print_intrin()
 
+
 def print_intrin():
 	__print_intrin()
+
+
+cdef extern from "cpp/constant.h":
+	cdef int8_t __mirror_coord_horizontal(int8_t coord)
+	cdef int8_t __mirror_coord_verical(int8_t coord)
+	cdef int8_t __mirror_coord_diag_a1h8(int8_t coord)
+	cdef int8_t __mirror_coord_diag_a8h1(int8_t coord) 
+	cdef int8_t __rotate_coord_clockwise(int8_t coord) 
+
+
+def mirror_coord_horizontal(coord):
+	return __mirror_coord_horizontal(coord)
+
+def mirror_coord_verical(coord):
+	return __mirror_coord_verical(coord)
+
+def mirror_coord_diag_a1a8(coord):
+	return __mirror_coord_diag_a1h8(coord)
+
+def mirror_coord_diag_a8h1(coord):
+	return __mirror_coord_diag_a8h1(coord)
+
+def rotate_coord_clockwise(coord):
+	return __rotate_coord_clockwise(coord)
+	
 
 cdef extern from "cpp/bitboard.h" namespace "reversi":
 	cdef cppclass __Bitboard:
