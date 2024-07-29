@@ -17,7 +17,7 @@ namespace reversi
 			data[SQUARE_NUM] = 0ULL;
 		});
 
-	static constexpr int8_t TO_HORIZONTAL_MIRROR_COORD[SQUARE_NUM] = 
+	constexpr int8_t TO_HORIZONTAL_MIRROR_COORD[SQUARE_NUM] = 
 	{
 		7, 6, 5, 4, 3, 2, 1, 0,
 		15, 14, 13, 12, 11, 10, 9, 8,
@@ -29,7 +29,7 @@ namespace reversi
 		63, 62, 61, 60, 59, 58, 57, 56
 	};
 
-	static constexpr int8_t TO_VERTICAL_MIRROR_COORD[SQUARE_NUM] = 
+	constexpr int8_t TO_VERTICAL_MIRROR_COORD[SQUARE_NUM] = 
 	{
 		56, 57, 58, 59, 60, 61, 62, 63,
 		48, 49, 50, 51, 52, 53, 54, 55,
@@ -41,7 +41,7 @@ namespace reversi
 		0, 1, 2, 3, 4, 5, 6, 7
 	};
 
-	static constexpr int8_t TO_DIAG_A1H8_MIRROR_COORD[SQUARE_NUM] =
+	constexpr int8_t TO_DIAG_A1H8_MIRROR_COORD[SQUARE_NUM] =
 	{
 		0, 8, 16, 24, 32, 40, 48, 56,
 		1, 9, 17, 25, 33, 41, 49, 57,
@@ -65,7 +65,7 @@ namespace reversi
 		56, 48, 40, 32, 24, 16, 8, 0
 	};
 
-	static constexpr int8_t TO_ROTATE_CLOCKWISE_COORD[SQUARE_NUM] =
+	constexpr int8_t TO_ROTATE_CLOCKWISE_COORD[SQUARE_NUM] =
 	{
 		7, 15, 23, 31, 39, 47, 55, 63,
 		6, 14, 22, 30, 38, 46, 54, 62,
