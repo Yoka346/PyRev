@@ -259,7 +259,13 @@ cdef class Position:
 		return self.__bb.disc_count()
 
 	def get_disc_count_of(self, color: DiscColor) -> int:
-		return self.__bb.player_disc_count() if color == self.__side_to_move else self.__bb.opponent_disc_count()
+		if color == self.__side_to_move:
+			return self.__bb.player_disc_count()
+
+		if color == to_opponent_color(self.__side_to_move):
+			return self.__bb.opponent_disc_count()
+			
+		return 0
 
 	def copy_to(self, dest: Position):
 		dest.__bb = __Bitboard(self.__bb.player, self.__bb.opponent)
