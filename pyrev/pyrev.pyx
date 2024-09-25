@@ -313,33 +313,38 @@ cdef class Position:
 		return self.__side_to_move == rhs.__side_to_move and self.__bb.player == rhs.__bb.player and self.__bb.opponent == rhs.__bb.opponent
 
 	def __str__(self) -> str:
-		s = "  "
+		s = ["  "]
 		for i in range(BOARD_SIZE):
-			s += f"{chr(ord('A') + i)} "
+			s.append(chr(ord('A') + i))
+			s.append(" ")
 
 		cdef uint64_t p = self.__bb.player
 		cdef uint64_t o = self.__bb.opponent
 		cdef int8_t side_to_move = self.__side_to_move
 		cdef uint64_t mask = 1
 		for y in range(BOARD_SIZE):
-			s += f"\n{y + 1} "
+			s.append("\n")
+			s.append(str(y + 1))
+			s.append(" ")
 			for _ in range(BOARD_SIZE):
 				if p & mask:
 					if side_to_move == BLACK:
-						s += "* "
+						s.append("*")
 					else:
-						s += "O "
+						s.append("O")
 				elif o & mask:
 					if side_to_move == BLACK:
-						s += "O "
+						s.append("O")
 					else:
-						s += "* "
+						s.append("*")
 				else:
-					s += "- "
+					s.append("-")
+
+				s.append(" ")
 				
 				mask <<= 1
 		
-		return s
+		return "".join(s)
 
 	def put_player_disc_at(self, coord: BoardCoordinate):
 		self.__bb.put_player_disc_at(coord)
