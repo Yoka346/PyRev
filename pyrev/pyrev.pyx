@@ -395,7 +395,7 @@ cdef class Position:
 			self.do_pass()
 
 		cdef uint64_t moves = self.__bb.calc_player_mobility()
-		if not (moves & (np.int64(1) << coord)):
+		if not (moves & (np.int64(1) << np.int8(coord))):
 			return False
 
 		self.do_move(coord, self.calc_flip_discs(coord))
