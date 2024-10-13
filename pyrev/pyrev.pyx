@@ -395,10 +395,7 @@ cdef class Position:
 			self.do_pass()
 
 		cdef uint64_t moves = self.__bb.calc_player_mobility()
-		cdef int32_t c = coord
-		cdef uint64_t x = 1ULL << c
-		print(c)
-		print(x)
+		cdef uint64_t x = 1ULL << coord
 		if not (moves & x):
 			return False
 
