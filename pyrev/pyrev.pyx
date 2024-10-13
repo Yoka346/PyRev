@@ -397,6 +397,8 @@ cdef class Position:
 		cdef uint64_t moves = self.__bb.calc_player_mobility()
 		cdef uint64_t c = coord
 		cdef uint64_t x = 1 << c
+		print(c)
+		print(x)
 		if not (moves & x):
 			return False
 
