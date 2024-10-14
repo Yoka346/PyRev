@@ -111,7 +111,7 @@ def parse_coord_str(s: str) -> BoardCoordinate:
 		raise ValueError(f"Coordinate {s} is invalid.")
 
 	x = ord(s[0]) - ord('a')
-	y = int(s[1:]) - 1
+	y = int(s[1:2]) - 1
 
 	return BoardCoordinate(x + y * 8)
 
