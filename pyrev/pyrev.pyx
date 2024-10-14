@@ -372,7 +372,9 @@ cdef class Position:
 
 	def is_legal(self, coord: BoardCoordinate) -> bool:
 		cdef uint64_t moves = self.__bb.calc_player_mobility()
-		return bool(np.uint64(moves) & (np.uint64(1) << coord))
+		cdef int32_t c = coord
+		cdef uint64_t x = 1ULL << c
+		return bool(np.uint64(moves) & x)
 
 	def do_pass(self):
 		self.__side_to_move = to_opponent_color(self.__side_to_move)
