@@ -374,7 +374,7 @@ cdef class Position:
 		cdef uint64_t moves = self.__bb.calc_player_mobility()
 		cdef int32_t c = coord
 		cdef uint64_t x = 1ULL << c
-		return bool(np.uint64(moves) & x)
+		return bool(moves & x)
 
 	def do_pass(self):
 		self.__side_to_move = to_opponent_color(self.__side_to_move)
