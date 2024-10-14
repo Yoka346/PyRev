@@ -107,7 +107,7 @@ def parse_coord_str(s: str) -> BoardCoordinate:
 	if s == "pass" or s == "pa":
 		return 64
 
-	if s[0] < 'a' or s[0] > chr(ord('a') + 7):
+	if s[0] < 'a' or s[0] > chr(ord('a') + 7) or s[1] < '1' or s[1] > '8':
 		raise ValueError(f"Coordinate {s} is invalid.")
 
 	x = ord(s[0]) - ord('a')
