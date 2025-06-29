@@ -3,3 +3,4 @@
 /build
 /pyrev.egg-info
 /pyrev/pyrev.cpp
+pyrev/.DS_Store

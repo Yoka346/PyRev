@@ -163,6 +163,8 @@ cdef extern from "cpp/bitboard.h" namespace "reversi":
 
 		__Bitboard() except +
 		__Bitboard(uint64_t player, uint64_t opponent) except +
+		uint64_t player_masked(uint64_t mask) const 
+		uint64_t opponent_masked(uint64_t mask) const 
 		uint64_t discs()
 		uint64_t empties()
 		int32_t player_disc_count()
@@ -257,6 +259,18 @@ cdef class Position:
 	@property
 	def disc_count(self) -> int:
 		return self.__bb.disc_count()
+
+	def get_player_masked_bitboard(self, mask: np.uint64) -> np.uint64:
+		self.__bb.player_masked(mask)
+
+	def get_opponent_masked_bitboard(self, mask: np.uint64) -> np.uint64:
+		self.__bb.opponent_masked(mask)
+
+	def get_masked_bitboard_of(self, color: DiscColor, mask: np.uint64) -> np.uint64:
+		if color == self.__side_to_move:
+			return self.__bb.player_masked(mask)
+		else:
+			return self.__bb.opponent_masked(mask)
 
 	def get_disc_count_of(self, color: DiscColor) -> int:
 		if color == self.__side_to_move:

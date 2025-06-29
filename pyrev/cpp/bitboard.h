@@ -6,6 +6,7 @@
 #include "utils/bitmanip.h"
 #include "utils/array.h"
 #include "utils/unroller.h"
+#include <cstdint>
 
 namespace reversi
 {
@@ -63,6 +64,8 @@ namespace reversi
 
 		__Bitboard() : player(0ULL), opponent(0ULL) { }
         __Bitboard(uint64_t player, uint64_t opponent) : player(player), opponent(opponent) {  }
+		uint64_t player_masked(uint64_t mask) const { return PEXT_64(player, mask); }
+		uint64_t opponent_masked(uint64_t mask) const { return PEXT_64(opponent, mask); }
 		uint64_t discs() const { return this->player | this->opponent; }
 		uint64_t empties() const { return ~discs(); }
 		int32_t player_disc_count() const { return std::popcount(this->player); }
