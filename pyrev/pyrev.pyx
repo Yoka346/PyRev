@@ -419,6 +419,10 @@ cdef class Position:
 		self.do_move(coord, self.calc_flip_discs(coord))
 		return True
 
+	def undo(self, coord: BoardCoordinate, flip):
+		self.__bb.undo(coord, flip)
+		self.__side_to_move = to_opponent_color(self.__side_to_move)
+
 	def calc_hash_code(self) -> np.uint64:
 		return np.uint64(self.__bb.calc_hash_code())
 	
