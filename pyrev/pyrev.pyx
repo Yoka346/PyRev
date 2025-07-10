@@ -364,7 +364,7 @@ cdef class Position:
 		self.__bb.put_player_disc_at(coord)
 
 	def put_opponent_disc_at(self, coord: BoardCoordinate):
-		self.__bb.put_player_disc_at(coord)
+		self.__bb.put_opponent_disc_at(coord)
 
 	def remove_disc_at(self, coord: BoardCoordinate):
 		self.__bb.remove_disc_at(coord)
